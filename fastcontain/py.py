@@ -1,7 +1,7 @@
 from typing import Optional
 
 
-class FastContain:
+class FastContainPy:
     def __init__(
         self,
         chars: str,
