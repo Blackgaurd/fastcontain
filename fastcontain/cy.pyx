@@ -33,7 +33,7 @@ cdef class FastContain:
                 self.hash2[i] =  (self.hash2[i - 1] * self.base2 + self.chars[i - 1]) % self.mod
                 self.pw2[i] = (self.pw2[i - 1] * self.base2) % self.mod
 
-    cdef int _contains(self, str other):
+    cdef int _contains(self, string other):
         cdef int i, l, r
 
         cdef int m = len(other)
@@ -45,10 +45,10 @@ cdef class FastContain:
         cdef long long other_hash1 = 0
         cdef long long other_hash2 = 0
         for i in range(m):
-            other_hash1 = (other_hash1 * self.base1 + ord(other[i])) % self.mod
+            other_hash1 = (other_hash1 * self.base1 + other[i]) % self.mod
         if use_base2:
             for i in range(m):
-                other_hash2 = (other_hash2 * self.base2 + ord(other[i])) % self.mod
+                other_hash2 = (other_hash2 * self.base2 + other[i]) % self.mod
 
         cdef int sub_hash1, sub_hash2
         for l in range(1, self.n - m + 2):
@@ -68,5 +68,5 @@ cdef class FastContain:
         return 0
 
     def __contains__(self, other: str):
-        return self._contains(other)
+        return self._contains(bytes(other, "utf-8"))
 
